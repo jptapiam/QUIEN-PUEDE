@@ -10,8 +10,6 @@ Prototipo funcional en desarrollo. Incluye búsqueda por servicio y ubicación, 
 
 La aplicación actual es estática. Puedes abrir `dist/index.html` o servir la carpeta `dist` con un servidor local.
 
-Ejemplo:
-
 ```bash
 python3 -m http.server 8080 --directory dist
 ```

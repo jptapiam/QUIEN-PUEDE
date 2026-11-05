@@ -1,0 +1,17 @@
+{
+  "name": "Quién Puede",
+  "short_name": "Quién Puede",
+  "description": "Busca servicios o publica una tarea y encuentra quién puede resolverla en Chile.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F3F3F3",
+  "theme_color": "#FFE600",
+  "icons": [
+    {
+      "src": "assets/quien-puede-icon-transparent.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

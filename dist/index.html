@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="es-CL">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#FFE600">
+  <meta name="description" content="Busca servicios o publica una tarea y encuentra quién puede resolverla en Chile.">
+  <title>Quién Puede · Servicios y cotizaciones en Chile</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/png" sizes="512x512" href="assets/quien-puede-icon-transparent.png">
+  <link rel="apple-touch-icon" href="assets/quien-puede-icon-transparent.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+  <div class="demo-bar">
+    <span>Prototipo funcional</span>
+    <p>Los perfiles, reseñas y pagos de esta versión son demostrativos.</p>
+  </div>
+
+  <header class="site-header">
+    <a class="brand" href="#inicio" aria-label="Quién Puede, inicio"><img src="assets/quien-puede-logo.png" alt="Quién Puede"></a>
+    <nav aria-label="Navegación principal">
+      <a href="#explorar">Explorar</a>
+      <a href="#empresas">Para empresas</a>
+      <a href="#categorias">Categorías</a>
+      <a href="#como-funciona">Cómo funciona</a>
+      <a href="#planes">Planes</a>
+      <button class="nav-button" data-open-inbox>Mensajes</button>
+    </nav>
+    <div class="header-actions">
+      <button class="btn btn-ghost" data-open-auth="login">Ingresar</button>
+      <button class="header-role header-role-need" data-need-service><span>⌕</span> Necesito un servicio</button>
+      <button class="header-role header-role-offer" data-provider-start><span>↗</span> Ofrezco servicios</button>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="inicio">
+      <div class="hero-copy">
+        <div class="eyebrow"><span></span> Elige cómo quieres comenzar</div>
+        <h1>¿Cómo quieres usar <em>Quién Puede?</em></h1>
+        <p class="hero-lead">Entra por el camino que necesitas. Puedes cambiar de función cuando quieras con la misma cuenta.</p>
+
+        <div class="intent-grid" aria-label="Elige cómo usar Quién Puede">
+          <button class="intent-card active" id="needService" data-need-service><span class="intent-icon">⌕</span><span><strong>Busco un servicio</strong><small>Encuentra opciones cercanas o publica una tarea</small></span><b>Entrar →</b></button>
+          <button class="intent-card" data-provider-start><span class="intent-icon">↗</span><span><strong>Ofrezco servicios</strong><small>Publicar mis servicios y encontrar oportunidades</small></span><b>Entrar →</b></button>
+        </div>
+
+        <div class="service-tool-label"><strong>¿Qué necesitas resolver?</strong><span>Busca ahora o publica una tarea sin registrarte.</span></div>
+        <form class="search-shell" id="searchForm" role="search">
+          <div class="search-field">
+            <span class="field-icon" aria-hidden="true">⌕</span>
+            <span class="sr-only">¿Qué servicio necesitas?</span>
+            <input id="queryInput" autocomplete="off" placeholder="Ej: gasfíter, electricista o clases de inglés" aria-label="¿Qué servicio buscas?" aria-autocomplete="list" aria-controls="serviceAutocomplete" aria-expanded="false">
+            <div class="service-autocomplete" id="serviceAutocomplete" role="listbox" hidden></div>
+          </div>
+          <div class="location-field">
+            <span class="pin" aria-hidden="true">⌖</span>
+            <span class="sr-only">Ubicación</span>
+            <input id="locationInput" list="locations" placeholder="Comuna, ciudad o dirección" aria-label="Comuna, ciudad o dirección">
+            <button class="geo-button" id="useLocation" type="button" title="Usar mi ubicación actual"><span>◎</span> Mi ubicación</button>
+            <datalist id="locations">
+              <option value="Todo Chile"><option value="Arica"><option value="Iquique"><option value="Antofagasta">
+              <option value="Copiapó"><option value="La Serena"><option value="Valparaíso"><option value="Viña del Mar">
+              <option value="Santiago"><option value="Rancagua"><option value="Talca"><option value="Chillán">
+              <option value="Concepción"><option value="Temuco"><option value="Valdivia"><option value="Puerto Montt">
+              <option value="Coyhaique"><option value="Punta Arenas">
+            </datalist>
+          </div>
+          <button class="btn btn-coral search-submit" type="submit">Buscar</button>
+          <button class="btn btn-outline task-trigger" type="button" data-post-task>Publicar tarea</button>
+        </form>
+        <p class="location-status" id="locationStatus" aria-live="polite">Puedes escribir tu zona o permitir la ubicación para ordenar por cercanía.</p>
+
+        <div class="search-suggestions" aria-label="Búsquedas sugeridas">
+          <span>Prueba con:</span>
+          <button data-query="gasfíter urgente">Gasfíter urgente</button>
+          <button data-query="clases de matemáticas">Clases de matemáticas</button>
+          <button data-query="alguien que arme muebles">Armar muebles</button>
+        </div>
+
+        <div class="hero-proof">
+          <div class="mini-avatars" aria-hidden="true"><span>MC</span><span>JP</span><span>LS</span></div>
+          <p><strong>Compara antes de decidir</strong><br>Perfiles, cotizaciones y reseñas verificadas</p>
+        </div>
+      </div>
+
+      <div class="hero-visual" aria-label="Ejemplo de prestadores disponibles">
+        <div class="map-lines" aria-hidden="true"></div>
+        <div class="floating-card fc-main">
+          <div class="profile-photo teal">MC</div>
+          <div>
+            <div class="card-topline"><strong>María C.</strong><span class="verified">✓ Verificada</span></div>
+            <p>Electricista domiciliaria</p>
+            <div class="rating">★ 4,9 <span>· Ñuñoa y alrededores</span></div>
+          </div>
+        </div>
+        <div class="floating-card fc-small fc-top"><span class="status-dot"></span><div><b>12 disponibles</b><small>hoy en tu zona</small></div></div>
+        <div class="floating-card fc-small fc-bottom"><span class="quote-icon">“</span><div><b>3 cotizaciones recibidas</b><small>Compara antes de elegir</small></div></div>
+        <div class="location-pin p1">⚡</div><div class="location-pin p2">🔧</div><div class="location-pin p3">✦</div>
+      </div>
+    </section>
+
+    <section class="trust-row" aria-label="Beneficios">
+      <div><span>◇</span><p><strong>Perfiles transparentes</strong>Información, fotos y zona de atención</p></div>
+      <div><span>✓</span><p><strong>Cotizaciones comparables</strong>Precio, alcance, plazo y condiciones</p></div>
+      <div><span>◎</span><p><strong>Puntaje Quién Puede</strong>Valoración, precio, alcance y plazo en un solo lugar</p></div>
+    </section>
+
+    <section class="section task-section" id="publicar">
+      <div class="task-copy"><span class="kicker">¿NO SABES A QUIÉN BUSCAR?</span><h2>Publica el problema. Recibe propuestas.</h2><p>Describe lo que necesitas con tus propias palabras, agrega fotografías y selecciona tu zona. Quién Puede lo relaciona con prestadores compatibles para que recibas cotizaciones formales.</p><ul><li>Publicar es gratis para quien necesita ayuda</li><li>Las cotizaciones internas se comparan automáticamente</li><li>Tú decides con quién avanzar</li></ul><button class="btn btn-coral" data-post-task>Publicar una tarea</button><div class="platform-score-note"><strong>¿Por qué cotizar dentro de Quién Puede?</strong><span>La plataforma ordena las propuestas según valoración, precio, plazo, alcance y verificación. Una cotización externa sigue siendo válida, pero no podrá compararse automáticamente ni incorporarse al Puntaje Quién Puede.</span></div></div>
+      <div class="task-preview">
+        <div class="task-preview-head"><span>Solicitud de ejemplo</span><span class="task-status">Recibiendo propuestas</span></div>
+        <h3>Necesito revisar una filtración en el baño</h3><p>Se observa humedad en el muro contiguo a la ducha. Necesito diagnóstico y presupuesto de reparación.</p><div class="task-tags"><span>Gasfitería</span><span>Quilpué</span><span>Esta semana</span></div><div class="task-match"><div><b>3</b><span>cotizaciones</span></div><div><b>4,8</b><span>valoración promedio</span></div><div><b>92</b><span>mejor puntaje</span></div><button class="btn btn-dark" data-demo-quotes>Comparar</button></div>
+      </div>
+    </section>
+
+    <section class="section b2b-section" id="empresas">
+      <div class="b2b-copy">
+        <span class="kicker light">QUIÉN PUEDE EMPRESAS</span>
+        <h2>Subcontrata servicios con empresas de tu zona.</h2>
+        <p>¿Necesitas reforzar una obra, cubrir una especialidad o externalizar una parte del trabajo? Encuentra proveedores empresariales o publica una oportunidad para recibir propuestas formales.</p>
+        <div class="b2b-actions">
+          <button class="btn btn-light" data-b2b-search>Buscar empresas</button>
+          <button class="btn btn-coral" data-b2b-publish>Publicar subcontratación</button>
+        </div>
+        <small>Disponible para cuentas de prestadores. Una empresa puede contratar y también postular a trabajos.</small>
+      </div>
+      <div class="b2b-board" aria-label="Ejemplo de oportunidad entre empresas">
+        <div class="b2b-board-head"><span>OPORTUNIDAD B2B</span><b>Abierta</b></div>
+        <h3>Subcontrato de instalación eléctrica</h3>
+        <p>Empresa constructora busca equipo certificado para ejecutar canalizaciones y montaje de tableros en remodelación comercial.</p>
+        <div class="b2b-tags"><span>Electricidad</span><span>Viña del Mar</span><span>Factura requerida</span></div>
+        <div class="b2b-board-foot"><div><strong>4</strong><small>empresas postulando</small></div><div><strong>18 oct.</strong><small>cierre de propuestas</small></div><button data-b2b-opportunities>Ver oportunidades</button></div>
+      </div>
+    </section>
+
+    <section class="section categories-section" id="categorias">
+      <div class="section-heading">
+        <div><span class="kicker">EXPLORA POR CATEGORÍA</span><h2>¿Qué necesitas resolver?</h2></div>
+        <button class="text-link" id="showAllCategories">Ver todas <span>→</span></button>
+      </div>
+      <div class="category-grid" id="categoryGrid"></div>
+      <div class="category-proposal">
+        <div><strong>¿No encuentras lo que buscas?</strong><span>Cuéntanos qué servicio falta y lo revisaremos para agregarlo.</span></div>
+        <button class="btn btn-outline" id="proposeCategory">Proponer categoría</button>
+      </div>
+    </section>
+
+    <section class="section explore-section" id="explorar">
+      <div class="explore-heading">
+        <div><span class="kicker light">VITRINA DE SERVICIOS</span><h2>Descubre cómo trabajan.</h2><p>Fotografías y videos de trabajos reales, ordenados por rubro, ubicación y valoración.</p></div>
+        <div class="explore-heading-actions"><button class="btn btn-light" id="showFollowing">Prestadores que sigo</button><button class="btn btn-coral" data-provider-publish>Publicar reel <small>EMPRESAS</small></button></div>
+      </div>
+      <div class="explore-browser">
+        <div class="explore-toolbar">
+          <label><span>⌕</span><input id="exploreSearch" autocomplete="off" placeholder="Buscar trabajos, empresas o servicios"></label>
+          <button id="savedExplore" aria-label="Ver publicaciones guardadas">♡</button>
+        </div>
+        <div class="explore-filters" id="exploreFilters" aria-label="Filtros de la vitrina">
+          <button class="active" data-explore-filter="all">Para ti</button><button data-explore-filter="near">Cerca de ti</button><button data-explore-filter="following">Siguiendo</button><button data-explore-filter="hogar">Hogar</button><button data-explore-filter="construccion">Construcción</button><button data-explore-filter="belleza">Belleza</button>
+        </div>
+        <div class="explore-grid" id="exploreGrid"></div>
+      </div>
+      <div class="explore-foot"><span>▣</span><div><strong>Una vitrina que genera trabajo</strong><p>Abre una publicación, revisa la valoración del prestador y solicita una cotización para algo parecido.</p></div></div>
+    </section>
+
+    <section class="section results-section" id="resultados">
+      <div class="results-head">
+        <div><span class="kicker">PERFILES DEMOSTRATIVOS</span><h2 id="resultsTitle">Prestadores destacados</h2><p id="resultsSubtitle">Explora ejemplos de cómo se verán los perfiles en la plataforma.</p></div>
+        <button class="btn btn-outline filter-toggle" id="filterToggle">Filtros <span id="filterCount"></span></button>
+      </div>
+      <div class="results-layout">
+        <aside class="filters" id="filtersPanel" aria-label="Filtros de búsqueda">
+          <div class="filter-title"><strong>Filtrar resultados</strong><button id="clearFilters">Limpiar</button></div>
+          <fieldset><legend>Valoración mínima</legend>
+            <label><input type="radio" name="rating" value="0" checked> Cualquiera</label>
+            <label><input type="radio" name="rating" value="4.5"> <span class="stars">★★★★★</span> 4,5 o más</label>
+            <label><input type="radio" name="rating" value="4.8"> <span class="stars">★★★★★</span> 4,8 o más</label>
+          </fieldset>
+          <fieldset><legend>Disponibilidad y confianza</legend>
+            <label><input type="checkbox" id="verifiedFilter"> Identidad verificada</label>
+            <label><input type="checkbox" id="todayFilter"> Disponible hoy</label>
+            <label><input type="checkbox" id="remoteFilter"> Atención remota</label>
+          </fieldset>
+          <fieldset><legend>Ordenar por</legend>
+            <select id="sortFilter"><option value="relevance">Más relevantes</option><option value="rating">Mejor valorados</option><option value="reviews">Más reseñas</option></select>
+          </fieldset>
+        </aside>
+        <div class="providers-list" id="providersList"></div>
+      </div>
+    </section>
+
+    <section class="section how-section" id="como-funciona">
+      <div class="how-intro"><span class="kicker light">DOS FORMAS DE ENCONTRAR AYUDA</span><h2>Resolver algo no debería ser complicado.</h2><p>Busca directamente o publica una tarea. En ambos casos podrás comparar antes de elegir.</p></div>
+      <ol class="steps">
+        <li><span>01</span><div class="step-icon">⌕</div><h3>Cuéntanos qué necesitas</h3><p>Busca un servicio o describe una tarea con tus propias palabras.</p></li>
+        <li><span>02</span><div class="step-icon">≋</div><h3>Compara alternativas</h3><p>Revisa perfiles o compara precio, alcance y plazo de las cotizaciones.</p></li>
+        <li><span>03</span><div class="step-icon">↗</div><h3>Elige con confianza</h3><p>Contacta al prestador y deja una reseña cuando el trabajo termine.</p></li>
+      </ol>
+    </section>
+
+    <section class="section provider-cta">
+      <div class="provider-cta-copy"><span class="kicker">PARA QUIENES OFRECEN SERVICIOS</span><h2>Nuevas oportunidades para lo que sabes hacer.</h2><p>Crea tu perfil, define dónde atiendes y conversa directamente con personas y empresas que necesitan tus servicios.</p><ul><li>Plan Basic gratis para siempre</li><li>Sin comisión por cada trabajo</li><li>Mejora a Premium cuando quieras más visibilidad</li></ul><button class="btn btn-coral" data-provider-start>Ofrecer mis servicios gratis</button></div>
+      <div class="dashboard-preview">
+        <div class="dash-head"><div class="brand mini"><img src="assets/quien-puede-logo.png" alt="Quién Puede"></div><span>Panel Pro</span></div>
+        <div class="dash-body"><div class="dash-sidebar"><i></i><i></i><i></i><i></i></div><div class="dash-content"><div class="welcome-line"><div><small>Buenos días, Carlos</small><strong>Tu perfil esta semana</strong></div><span>Perfil visible</span></div><div class="metric-row"><div><small>Visitas</small><b>48</b><em>Ejemplo</em></div><div><small>Contactos</small><b>7</b><em>Ejemplo</em></div><div><small>Valoración</small><b>4,9</b><em>Demo</em></div></div><div class="chart-bars"><i style="height:32%"></i><i style="height:50%"></i><i style="height:44%"></i><i style="height:72%"></i><i style="height:62%"></i><i style="height:88%"></i><i style="height:77%"></i></div></div></div>
+      </div>
+    </section>
+
+    <section class="section pricing" id="planes">
+      <div class="pricing-head"><span class="kicker">PLANES PARA PRESTADORES</span><h2>Parte gratis. Destaca cuando lo necesites.</h2><p>Crea tu perfil y recibe oportunidades sin pagar. El plan Basic es gratis para siempre; Premium aumenta tu visibilidad frente a personas que buscan tu servicio y están cerca de tu ubicación.</p></div>
+      <div class="plan-grid">
+          <article class="plan-card"><div class="trial-ribbon">GRATIS PARA SIEMPRE</div><div><span class="plan-name">Basic</span><p>Para estar presente, conversar y mostrar lo que haces.</p></div><div class="price"><b>$0</b><span>CLP / para siempre</span></div><ul><li>Perfil público y mensajería</li><li>Portafolio estándar de trabajos, fotos y reels</li><li>Aparición orgánica en búsquedas</li><li>Buscar empresas y publicar subcontratos B2B</li><li>Acceso a oportunidades compatibles</li><li>Valoraciones de trabajos confirmados</li></ul><button class="btn btn-outline full" data-plan="basic">Crear perfil gratis</button><small>No requiere tarjeta ni medio de pago.</small></article>
+        <article class="plan-card premium"><div class="popular">IMPULSO PREMIUM</div><div><span class="plan-name">Premium</span><p>Para aumentar tu visibilidad y generar más contactos.</p></div><div class="price"><b>$16.990</b><span>CLP / mes</span></div><ul><li>Todo lo incluido en Basic</li><li>Insignia verificada después de validar tu empresa</li><li>Prioridad en búsquedas por rubro y ubicación</li><li>Aparición preferente en historias y reels cercanos</li><li>Publicaciones destacadas y portafolio ampliado</li><li>Alertas inmediatas, estadísticas y soporte prioritario</li></ul><button class="btn btn-coral full" data-plan="premium">Elegir Premium</button><small>Las promociones se identifican y nunca alteran la valoración del prestador.</small></article>
+      </div>
+    </section>
+
+    <section class="section privacy-section" id="seguridad">
+      <div class="privacy-heading"><span class="kicker light">CONFIANZA Y CONTROL</span><h2>Comparar dentro de la plataforma te conviene.</h2><p>Concentrar las propuestas en un solo lugar permite tomar una decisión mejor informada.</p></div>
+      <div class="privacy-grid"><article><span>◎</span><h3>Puntaje comparativo</h3><p>Combinamos valoración, precio, plazo, alcance y verificación para ordenar las propuestas.</p></article><article><span>▣</span><h3>Todo en un lugar</h3><p>Puedes revisar cotizaciones formales sin perder información entre llamadas y mensajes.</p></article><article><span>◇</span><h3>Tú decides cómo avanzar</h3><p>También puedes coordinar por fuera; simplemente no tendrá comparación automática.</p></article></div>
+    </section>
+
+    <section class="final-cta"><span>¿Tienes algo pendiente por resolver?</span><h2>Cuéntanos qué necesitas. Descubre quién puede.</h2><div class="final-actions"><button class="btn btn-light" id="backToSearch">Buscar un servicio</button><button class="btn btn-dark" data-post-task>Publicar una tarea</button></div></section>
+  </main>
+
+  <footer>
+    <div class="footer-main"><div><a class="brand footer-brand" href="#inicio"><img src="assets/quien-puede-logo-white.png" alt="Quién Puede"></a><p>Publica lo que necesitas. Encuentra quién puede, en todo Chile.</p></div><div><strong>Personas</strong><a href="#inicio">Buscar servicios</a><button data-post-task>Publicar una tarea</button><a href="#como-funciona">Cómo funciona</a></div><div><strong>Prestadores</strong><button data-provider-start>Ofrecer mis servicios</button><a href="#planes">Planes</a><a href="#resultados">Perfiles de ejemplo</a></div><div><strong>Plataforma</strong><button data-info="Seguridad">Seguridad</button><button data-info="Términos">Términos</button><button data-info="Privacidad">Privacidad</button></div></div>
+    <div class="footer-bottom"><span>© 2026 Quién Puede · Prototipo y datos demostrativos</span><span>Hecho para Chile 🇨🇱</span></div>
+  </footer>
+
+  <nav class="mobile-nav" aria-label="Navegación móvil"><a href="#inicio"><span>⌂</span>Inicio</a><button data-open-reels><span class="media-nav-icon">▶</span>Reels</button><button class="mobile-publish" data-provider-publish><span>＋</span>Publicar <small>PRO</small></button><button data-open-inbox><span>⌁</span>Mensajes</button><button data-open-auth="login"><span>♙</span>Mi cuenta</button></nav>
+
+  <div class="modal-backdrop" id="modalBackdrop" hidden>
+    <section class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" id="modalClose" aria-label="Cerrar">×</button>
+      <div id="modalContent"></div>
+    </section>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
