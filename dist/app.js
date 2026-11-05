@@ -629,4 +629,4 @@ el("modalClose").addEventListener("click",closeModal);el("modalBackdrop").addEve
 
 if(state.user?.role==="customer"&&state.user.location){el("locationInput").value=state.user.location;state.location=state.user.location;state.coords=state.user.coords||coordinatesForLocation(state.user.location);el("locationStatus").textContent="Usaremos la ubicación guardada en tu perfil. Puedes cambiarla cuando quieras.";}
 renderCategories();renderProviders();renderExplore();updateAccountButton();
-if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("/sw.js").catch(()=>{}));
+if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
