@@ -1,8 +1,8 @@
 const CACHE = "quien-puede-v17-bunny-test";
-const ASSETS = ["/", "/index.html", "/styles.css", "/app.js", "/manifest.webmanifest", "/assets/quien-puede-logo.png", "/assets/quien-puede-logo-white.png", "/assets/quien-puede-logo-blue.png", "/assets/quien-puede-icon-transparent.png"];
+const ASSETS = ["./", "./index.html", "./styles.css", "./app.js", "./manifest.webmanifest", "./assets/quien-puede-logo.png", "./assets/quien-puede-logo-white.png", "./assets/quien-puede-logo-blue.png", "./assets/quien-puede-icon-transparent.png"];
 self.addEventListener("install", event => event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS))));
 self.addEventListener("activate", event => event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key !== CACHE).map(key => caches.delete(key))))));
 self.addEventListener("fetch", event => {
   if (event.request.method !== "GET") return;
-  event.respondWith(fetch(event.request).catch(() => caches.match(event.request).then(hit => hit || caches.match("/index.html"))));
+  event.respondWith(fetch(event.request).catch(() => caches.match(event.request).then(hit => hit || caches.match("./index.html"))));
 });
