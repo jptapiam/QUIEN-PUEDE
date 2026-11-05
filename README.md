@@ -19,3 +19,5 @@ Luego abre `http://localhost:8080`.
 ## Seguridad
 
 Las credenciales de servicios externos, claves de Bunny Stream y variables privadas no se guardan en este repositorio.
+
+<!-- Activación de GitHub Pages -->
